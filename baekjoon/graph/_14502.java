@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 
 public class _14502 { // 연구소 : http://www.acmicpc.net/problem/14502
 
-	static int N, M, ans; 
+	static int N, M, ans;
 	static int[][] map;
 	static int[][] tempMap;
 	static int[] dx = { 1, -1, 0, 0 };
@@ -27,7 +27,6 @@ public class _14502 { // 연구소 : http://www.acmicpc.net/problem/14502
 
 		ans = Integer.MIN_VALUE;
 
-
 		for (int i = 0; i < N; i++) {
 			st = new StringTokenizer(br.readLine());
 			for (int j = 0; j < M; j++) {
@@ -35,7 +34,7 @@ public class _14502 { // 연구소 : http://www.acmicpc.net/problem/14502
 			}
 		}
 
-		dfs(0, 0);
+		buildWall(0, 0);
 
 		System.out.println(ans);
 
@@ -49,41 +48,34 @@ public class _14502 { // 연구소 : http://www.acmicpc.net/problem/14502
 		}
 	}
 
-	private static void dfs(int start, int wall) {
-		
-		if (wall == 3) { // 벽이 3개 세워지면 tempMap에 복사하고 바이러스 퍼뜨림. 
-			int cnt = 0;
+	private static void buildWall(int start, int cnt) {
+
+		if (cnt == 3) { // 벽이 3개 세워지면 tempMap에 복사하고 바이러스 퍼뜨림.
 			copyMap(map, tempMap);
 			for (int i = 0; i < N; i++) {
 				for (int j = 0; j < M; j++) {
 					if (tempMap[i][j] == 2) {
-						spread(i, j);
+						spreadVirus(i, j);
 					}
 				}
 			}
-			for (int i = 0; i < N; i++) { // 안전영역 카운트. 
-				for (int j = 0; j < M; j++) {
-					if (tempMap[i][j] == 0) {
-						cnt++;
-					}
-				}
-			}
-			ans = Math.max(ans, cnt);
+
+			ans = Math.max(ans, getSafetyArea(tempMap));
 			return;
 		}
 
-		for (int i = start; i < N * M; i++) { // 벽세우기. 
+		for (int i = start; i < N * M; i++) { // 벽세우기.
 			int x = i / M;
 			int y = i % M;
 			if (map[x][y] == 0) {
 				map[x][y] = 1;
-				dfs(i + 1, wall + 1);
+				buildWall(i + 1, cnt + 1);
 				map[x][y] = 0;
 			}
 		}
 	}
 
-	private static void spread(int x, int y) { // 바이러스 퍼뜨리기. 
+	private static void spreadVirus(int x, int y) { // 바이러스 퍼뜨리기.
 
 		for (int i = 0; i < 4; i++) {
 			int nextX = x + dx[i];
@@ -93,9 +85,21 @@ public class _14502 { // 연구소 : http://www.acmicpc.net/problem/14502
 			}
 			if (tempMap[nextX][nextY] == 0) {
 				tempMap[nextX][nextY] = 2;
-				spread(nextX, nextY);
+				spreadVirus(nextX, nextY);
 			}
 		}
+	}
+
+	private static int getSafetyArea(int[][] arr) { // 안전영역 카운트.
+		int cnt = 0;
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < M; j++) {
+				if (arr[i][j] == 0) {
+					cnt++;
+				}
+			}
+		}
+		return cnt;
 	}
 
 }
