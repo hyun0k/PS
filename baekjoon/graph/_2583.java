@@ -77,9 +77,9 @@ public class _2583 { // 영역 구하기 : http://www.acmicpc.net/problem/2583
 	}
 
 	private static void dfs(int x, int y) {
-		if (map[y][x] == 1 || visited[y][x]) {
-			return;
-		}
+//		if (map[y][x] == 1 || visited[y][x]) {
+//			return;
+//		}
 		visited[y][x] = true;
 		cnt++;
 		for (int i = 0; i < 4; i++) {
@@ -91,6 +91,7 @@ public class _2583 { // 영역 구하기 : http://www.acmicpc.net/problem/2583
 			if (visited[nextY][nextX] || map[nextY][nextX] == 1) {
 				continue;
 			}
+			
 			dfs(nextX, nextY);
 		}
 	}
