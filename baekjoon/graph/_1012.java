@@ -60,14 +60,14 @@ public class _1012 { // 유기농 배추 : http://www.acmicpc.net/problem/1012
 			for (int j = 0; j < M; j++) {
 				if (farm[i][j] == 1 && !visited[i][j]) {
 					visited[i][j] = true;
-					dfs(i, j);
+					dfs(j, i);
 					cnt++;
 				}
 			}
 		}
 	}
 
-	private static void dfs(int y, int x) {
+	private static void dfs(int x, int y) {
 		for (int i = 0; i < 4; i++) {
 			int nextX = x + dx[i];
 			int nextY = y + dy[i];
@@ -78,7 +78,7 @@ public class _1012 { // 유기농 배추 : http://www.acmicpc.net/problem/1012
 				continue;
 			}
 			visited[nextY][nextX] = true;
-			dfs(nextY, nextX);
+			dfs(nextX, nextY);
 		}
 	}
 
