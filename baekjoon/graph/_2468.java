@@ -24,9 +24,9 @@ public class _2468 { // 안전영역 : //http://www.acmicpc.net/problem/2468
 		map = new int[N][N];
 		visited = new boolean[N][N];
 
-		ans = Integer.MIN_VALUE;
-		max = Integer.MIN_VALUE;
-		pptn = 0;
+		ans = Integer.MIN_VALUE; // 안전영역 최대개수 
+		max = Integer.MIN_VALUE; // map의 최대높이 
+		pptn = 0; 				 // 강수량 
 
 		for (int i = 0; i < N; i++) {
 			st = new StringTokenizer(br.readLine());
