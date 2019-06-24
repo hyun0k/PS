@@ -47,7 +47,7 @@ public class _2468 { // 안전영역 : //http://www.acmicpc.net/problem/2468
 			for (int i = 0; i < N; i++) {
 				for (int j = 0; j < N; j++) {
 					if (map[i][j] <= pptn) {
-						map[i][j] = 0;
+						map[i][j] = 0; // 침수된 곳은 0
 					}
 				}
 			}
