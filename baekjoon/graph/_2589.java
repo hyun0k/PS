@@ -11,7 +11,7 @@ import java.util.StringTokenizer;
 public class _2589 { // 보물섬 : http://www.acmicpc.net/problem/2589
 
 	/**
-	 * 최단거리 문제이므로 bfs. 두 지점의 최단경로의 최댓값을 찾아야함. 
+	 * 최단거리 문제이므로 bfs. 두 지점의 최단경로의 최댓값을 찾아야함.
 	 */
 	static int N, M, ans, max;
 	static char[][] map;
@@ -48,17 +48,17 @@ public class _2589 { // 보물섬 : http://www.acmicpc.net/problem/2589
 	private static void explore() {
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < M; j++) {
+				max = Integer.MIN_VALUE; // max 초기화.
+				for (boolean row[] : visited) { // visited 초기화.
+					Arrays.fill(row, false);
+				}
+				for (int row[] : dist) { // dist 초기화.
+					Arrays.fill(row, 0);
+				}
 				if (map[i][j] == 'L' && !visited[i][j]) {
 					visited[i][j] = true;
 					bfs(j, i);
 					ans = Math.max(ans, max);
-					max = Integer.MIN_VALUE;           // max 초기화.
-					for (boolean row[] : visited) {    // visited 초기화.
-						Arrays.fill(row, false);
-					}
-					for (int row[] : dist) {          // dist 초기화.
-						Arrays.fill(row, 0);
-					}
 				}
 			}
 		}
@@ -88,7 +88,7 @@ public class _2589 { // 보물섬 : http://www.acmicpc.net/problem/2589
 
 			}
 		}
-		for (int i = 0; i < N; i++) {			// dist에서 최댓값찾기. 
+		for (int i = 0; i < N; i++) { // dist에서 최댓값찾기.
 			for (int j = 0; j < M; j++) {
 				max = Math.max(max, dist[i][j]);
 			}
