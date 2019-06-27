@@ -58,11 +58,11 @@ public class _2146 { // 다리만들기 : http://www.acmicpc.net/problem/2146
 	private static void buildBrg() {  // 다리 놓기. 
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
-				min = Integer.MAX_VALUE;
-				for (boolean[] row : visited) {
+				min = Integer.MAX_VALUE;		//초기화. 
+				for (boolean[] row : visited) { //초기화. 
 					Arrays.fill(row, false);
 				}
-				for (int[] row : dist) {
+				for (int[] row : dist) {		//초기화.
 					Arrays.fill(row, 0);
 				}
 				if (map[i][j] != 0 && !visited[i][j]) {
@@ -101,10 +101,10 @@ public class _2146 { // 다리만들기 : http://www.acmicpc.net/problem/2146
 				if (nextX < 0 || nextY < 0 || nextX >= N || nextY >= N) {
 					continue;
 				}
-				if (visited[nextY][nextX] || map[nextY][nextX] == map[y][x]) {	
+				if (visited[nextY][nextX] || map[nextY][nextX] == map[y][x]) {	// 이미 방문했거나 처음 지점과 라벨이 같으면 pass. 
 					continue;
 				}
-				if (map[y][x] != map[nextY][nextX] && map[nextY][nextX] != 0) {
+				if (map[y][x] != map[nextY][nextX] && map[nextY][nextX] != 0) { // 처음 지점과 라벨이 다르고 바다가 아니면 다른 섬에 도착한것이므로 탐색멈추고 최솟값 갱신. 
 					min = Math.min(min, dist[curY][curX]);
 					break;
 				}
