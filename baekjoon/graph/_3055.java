@@ -10,15 +10,16 @@ import java.util.StringTokenizer;
 public class _3055 { // 탈출 : http://www.acmicpc.net/problem/3055
 
 	/**
-	 *  돌은 신경쓰지 않는다. 물 먼저 채우고 그 다음 고슴도치가 이동한다. 
+	 * 돌은 신경쓰지 않는다. 물 먼저 채우고 그 다음 고슴도치가 이동한다.
 	 */
-	
-	static int R, C, ans;
+
+	static int R, C, step;
+	static boolean flag;
 	static char[][] map;
 	static int[] dx = { 0, 0, 1, -1 };
 	static int[] dy = { 1, -1, 0, 0 };
-	static Queue<Point> water = new LinkedList<>();
-	static Queue<Point> start = new LinkedList<>();
+	static Queue<Point> water;
+	static Queue<Point> start;
 
 	public static void main(String[] args) throws IOException {
 
@@ -29,6 +30,11 @@ public class _3055 { // 탈출 : http://www.acmicpc.net/problem/3055
 		C = Integer.parseInt(st.nextToken());
 
 		map = new char[R][C];
+		step = 0;
+		flag = false;
+
+		water = new LinkedList<>();
+		start = new LinkedList<>();
 
 		for (int i = 0; i < R; i++) {
 			String str = br.readLine();
@@ -44,68 +50,63 @@ public class _3055 { // 탈출 : http://www.acmicpc.net/problem/3055
 			}
 		}
 
-		ans = 0;
-		while (true) {
-			++ans;
-			if (start.size() == 0) {
-				System.out.println("KAKTUS");
-				return;
-			}
+		flooding();
 
-			flooding();
-			if (moveHedge()) {
-				System.out.println(ans);
-				return;
-			}
-		}
-
+		System.out.println(flag ? step : "KAKTUS");
 	}
 
 	private static void flooding() {
-		int size = water.size();
-		for (int j = 0; j < size; j++) {
-			Point p = water.poll();
-			int curX = p.x;
-			int curY = p.y;
 
-			for (int i = 0; i < 4; i++) {
-				int nextX = curX + dx[i];
-				int nextY = curY + dy[i];
+		while (!water.isEmpty() || !start.isEmpty()) {
 
-				if (nextX >= 0 && nextY >= 0 && nextX < C && nextY < R) {
-					if (map[nextY][nextX] == '.') {
-						map[nextY][nextX] = '*';
-						water.add(new Point(nextX, nextY));
+			int wsize = water.size();
+			for (int i = 0; i < wsize; i++) {	// 물 먼저 이동. 
+				Point p = water.poll();
+				int curX = p.x;
+				int curY = p.y;
+
+				for (int j = 0; j < 4; j++) {
+					int nextX = curX + dx[j];
+					int nextY = curY + dy[j];
+
+					if (nextX >= 0 && nextY >= 0 && nextX < C && nextY < R) {
+						if (map[nextY][nextX] == '.' || map[nextY][nextX] == 'S') {
+							map[nextY][nextX] = '*';
+							water.add(new Point(nextX, nextY));
+						}
 					}
 				}
 			}
-		}
-	}
+			
+			int ssize = start.size();
+			if (ssize > 0) {
+				step++;
 
-	private static boolean moveHedge() {
-		int size = start.size();
-		for (int j = 0; j < size; j++) {
-			Point p = start.poll();
-			int curX = p.x;
-			int curY = p.y;
+				for (int i = 0; i < ssize; i++) { // 고슴도치 이동. 
+					Point p = start.poll();
+					int curX = p.x;
+					int curY = p.y;
 
-			for (int i = 0; i < 4; i++) {
-				int nextX = curX + dx[i];
-				int nextY = curY + dy[i];
+					for (int j = 0; j < 4; j++) {
+						int nextX = curX + dx[j];
+						int nextY = curY + dy[j];
 
-				if (nextX >= 0 && nextY >= 0 && nextX < C && nextY < R) {
-					if (map[nextY][nextX] == 'D') {
-						start.add(new Point(nextX, nextY));
-						return true;
-					}
-					if (map[nextY][nextX] == '.') {
-						map[nextY][nextX] = 'S';
-						start.add(new Point(nextX, nextY));
+						if (nextX >= 0 && nextY >= 0 && nextX < C && nextY < R) {
+							if (map[nextY][nextX] == 'D') {
+								flag = true;
+								return;
+							}
+							if (map[nextY][nextX] == '.') {
+								map[nextY][nextX] = 'S';
+								start.add(new Point(nextX, nextY));
+							}
+						}
 					}
 				}
+			} else {
+				return;
 			}
 		}
-		return false;
 	}
 
 	private static class Point {
