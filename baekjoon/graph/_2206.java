@@ -41,10 +41,10 @@ public class _2206 { // 벽 부수고 이동하기 : http://www.acmicpc.net/prob
 		System.out.println(flag ? step : -1);
 	}
 
-	private static void bfs(int x, int y, int w) {
+	private static void bfs(int x, int y, int c) {
 
 		q = new LinkedList<>();
-		q.add(new Point(x, y, w));
+		q.add(new Point(x, y, c));
 		visited[y][x][0] = true; // 벽을 안부수는 경우 
 		visited[y][x][1] = true; // 벽을 부수는 경우 
 
@@ -58,6 +58,7 @@ public class _2206 { // 벽 부수고 이동하기 : http://www.acmicpc.net/prob
 				Point p = q.poll();
 				int curX = p.x;
 				int curY = p.y;
+				int curC = p.c;
 
 				if (curX == M - 1 && curY == N - 1) {
 					flag = true;
@@ -71,15 +72,15 @@ public class _2206 { // 벽 부수고 이동하기 : http://www.acmicpc.net/prob
 					if (nextX >= 0 && nextY >= 0 && nextX < M && nextY < N) {
 						
 						if (map[nextY][nextX] == 1) { // 벽 일때
-							if (p.crash == 0 && !visited[nextY][nextX][1]) {
+							if (curC == 0 && !visited[nextY][nextX][1]) {
 								visited[nextY][nextX][1] = true;
 								q.add(new Point(nextX, nextY, 1));
 							}
 						}
 						if (map[nextY][nextX] == 0) { // 벽이 아닐때
-							if (!visited[nextY][nextX][p.crash]) {
-								visited[nextY][nextX][p.crash] = true;
-								q.add(new Point(nextX, nextY, p.crash));
+							if (!visited[nextY][nextX][curC]) {
+								visited[nextY][nextX][curC] = true;
+								q.add(new Point(nextX, nextY, curC));
 							}
 						}
 					}
@@ -90,12 +91,12 @@ public class _2206 { // 벽 부수고 이동하기 : http://www.acmicpc.net/prob
 	}
 
 	private static class Point {
-		int x, y, crash;
+		int x, y, c;
 
-		Point(int x, int y, int crash) { // crash: 벽을 부수면 1, 아니면 0 
+		Point(int x, int y, int c) { // c: 벽을 부수면 1, 아니면 0 
 			this.x = x;
 			this.y = y;
-			this.crash = crash;
+			this.c = c;
 		}
 	}
 
