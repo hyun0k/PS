@@ -63,7 +63,7 @@ public class _14442 { // 벽 부수고 이동하기2 : http://www.acmicpc.net/pr
 				int curY = p.y;
 				int curC = p.c;
 
-				if (curX == M - 1 && curY == N - 1) {
+				if (curX == M - 1 && curY == N - 1) { // 도착. 
 					flag = true;
 					break;
 				}
@@ -75,14 +75,14 @@ public class _14442 { // 벽 부수고 이동하기2 : http://www.acmicpc.net/pr
 
 					if (nextX >= 0 && nextY >= 0 && nextX < M && nextY < N) {
 
-						if (map[nextY][nextX] == 1) {
+						if (map[nextY][nextX] == 1) { // 벽 일때 
 							if (nextC <= K && !visited[nextY][nextX][nextC]) {
 								visited[nextY][nextX][nextC] = true;
 								q.add(new Point(nextX, nextY, nextC));
 							}
 						}
 
-						if (map[nextY][nextX] == 0) {
+						if (map[nextY][nextX] == 0) { // 벽이 아닐때 
 							if (!visited[nextY][nextX][curC]) {
 								visited[nextY][nextX][curC] = true;
 								q.add(new Point(nextX, nextY, curC));
@@ -97,7 +97,7 @@ public class _14442 { // 벽 부수고 이동하기2 : http://www.acmicpc.net/pr
 	private static class Point {
 		int x, y, c;
 
-		Point(int x, int y, int c) { // c: 벽을 부수면 1, 아니면 0
+		Point(int x, int y, int c) { // c: 벽을 부순 개수 
 			this.x = x;
 			this.y = y;
 			this.c = c;

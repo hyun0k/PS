@@ -60,7 +60,7 @@ public class _2206 { // 벽 부수고 이동하기 : http://www.acmicpc.net/prob
 				int curY = p.y;
 				int curC = p.c;
 
-				if (curX == M - 1 && curY == N - 1) {
+				if (curX == M - 1 && curY == N - 1) { // 도착. 
 					flag = true;
 					break;
 				}
@@ -93,7 +93,7 @@ public class _2206 { // 벽 부수고 이동하기 : http://www.acmicpc.net/prob
 	private static class Point {
 		int x, y, c;
 
-		Point(int x, int y, int c) { // c: 벽을 부수면 1, 아니면 0 
+		Point(int x, int y, int c) { // c: 벽을 부순 개수  
 			this.x = x;
 			this.y = y;
 			this.c = c;
