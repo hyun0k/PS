@@ -13,7 +13,7 @@ public class _2105 { // 디저트 카페
 	 *  dfs + 완전탐색. 그런데 탐색할때 반복문으로 돌지않는다. 
 	 */
 	
-	static int T, N, startX, startY, max;
+	static int T, N, startX, startY, max, ans;
 	static int[][] map;
 	static boolean[][] visited;
 	static boolean[] dessert;
@@ -47,9 +47,9 @@ public class _2105 { // 디저트 카페
 
 			explore();
 
-			max = (max == Integer.MIN_VALUE) ? -1 : max;
+			ans = (max == Integer.MIN_VALUE) ? -1 : max;
 
-			sb.append("#" + tc + " " + max + "\n");
+			sb.append("#" + tc + " " + ans + "\n");
 		}
 		System.out.println(sb);
 	}
