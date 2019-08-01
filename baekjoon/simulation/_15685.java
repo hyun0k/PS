@@ -35,7 +35,7 @@ public class _15685 { // 드래곤 커브 : http://www.acmicpc.net/problem/15685
 
 			dragonCurve(x, y, d, g);
 		}
-		countRect();
+		cntSquare();
 
 		System.out.println(cnt);
 	}
@@ -61,7 +61,7 @@ public class _15685 { // 드래곤 커브 : http://www.acmicpc.net/problem/15685
 
 	}
 
-	private static void countRect() {
+	private static void cntSquare() {
 
 		for (int i = 0; i < 100; i++) {
 			for (int j = 0; j < 100; j++) {
