@@ -11,6 +11,7 @@ public class _3190 { // 뱀 : http://www.acmicpc.net/problem/3190
 	
 	/**
 	 * 큐를 사용해서 꼬리 위치를 계속 갱신시키는 것이 핵심이다. 
+	 * map에서 빈곳:0, 뱀:1, 사과:2
 	 */
 
 	static int N, K, r, c, L, sec;
@@ -59,7 +60,7 @@ public class _3190 { // 뱀 : http://www.acmicpc.net/problem/3190
 		snake.add(new Point(curX, curY));
 
 		map[curY][curX] = 1;
-		int curDir = d;
+		int curDir = d; // 현재 방향 
 		int timeIdx = 0;
 
 		while (true) {
