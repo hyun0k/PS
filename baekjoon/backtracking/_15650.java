@@ -7,7 +7,7 @@ import java.util.StringTokenizer;
 
 public class _15650 { // N과 M (2) : http://www.acmicpc.net/problem/15650
 	/**
-	 *  오름차순 수열만 출력 
+	 * 오름차순 수열만 출력
 	 */
 	static int N, M;
 	static int[] arr;
@@ -25,32 +25,33 @@ public class _15650 { // N과 M (2) : http://www.acmicpc.net/problem/15650
 
 		sb = new StringBuilder();
 		visited = new boolean[N];
-		arr = new int[M];
 
-		dfs(0, -1);
+		dfs(0, 0);
 
 		System.out.println(sb);
 	}
-	
+
 	private static void printArray() {
-		for (int i = 0; i < M; i++) {
-			sb.append(arr[i] + " ");
+
+		for (int i = 0; i < N; i++) {
+			if (visited[i]) {
+				sb.append((i + 1) + " ");
+			}
 		}
 		sb.append("\n");
 	}
 
-	private static void dfs(int m, int pre) { // pre : 이전 값
+	private static void dfs(int pre, int cnt) { // pre : 이전 값
 
-		if (m == M) {
+		if (cnt == M) {
 			printArray();
 			return;
 		}
 
-		for (int i = 0; i < N; i++) {
-			if (!visited[i] && i > pre) { // 이전 방문 값보다 클 때만 dfs 
+		for (int i = pre; i < N; i++) {
+			if (!visited[i]) { 
 				visited[i] = true;
-				arr[m] = i + 1;
-				dfs(m + 1, i);
+				dfs(i + 1, cnt + 1);
 				visited[i] = false;
 			}
 		}
