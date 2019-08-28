@@ -31,14 +31,18 @@ public class _15650 { // N과 M (2) : http://www.acmicpc.net/problem/15650
 
 		System.out.println(sb);
 	}
+	
+	private static void printArray() {
+		for (int i = 0; i < M; i++) {
+			sb.append(arr[i] + " ");
+		}
+		sb.append("\n");
+	}
 
 	private static void dfs(int m, int pre) { // pre : 이전 값
 
 		if (m == M) {
-			for (int i = 0; i < M; i++) {
-				sb.append(arr[i] + " ");
-			}
-			sb.append("\n");
+			printArray();
 			return;
 		}
 
